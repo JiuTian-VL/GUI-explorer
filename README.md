@@ -23,6 +23,9 @@ Annual Meeting of the Association for Computational Linguistics (**ACL**) 2025
 
 :fire: Details will be released. Stay tuned :beers: :+1: 
 
+</div>
+</div>
+
 ## If you find this work useful for your research, please kindly cite our paper and star our repo.
 
 ## Updates
