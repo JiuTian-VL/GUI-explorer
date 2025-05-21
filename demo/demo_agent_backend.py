@@ -8,6 +8,7 @@ from MLLM_Agent.GUI_explorer import GUI_explorer
 os.environ["no_proxy"] = "localhost, 127.0.0.1/8, ::1"
 print("Agent Service")
 print("Loading Agent...")
+assert os.getenv("TURN_ON_DEMO_MODE", "False").lower() == "true"
 agent = GUI_explorer()
 
 from fastapi import FastAPI, Request
@@ -27,7 +28,7 @@ app.add_middleware(
 async def sent_massage(request: Request):
     """
     ```js
-    fetch('http://127.0.0.1:5769/run_task', {
+    fetch('http://127.0.0.1:8767/run_task', {
     method: 'POST',
     headers: {
         'accept': 'application/json',
@@ -62,4 +63,4 @@ async def sent_massage2(request: Request):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=5769, timeout_graceful_shutdown=3)
+    uvicorn.run(app, host="0.0.0.0", port=8767, timeout_graceful_shutdown=3)

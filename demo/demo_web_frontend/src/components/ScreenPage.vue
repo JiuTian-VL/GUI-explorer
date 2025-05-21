@@ -37,9 +37,9 @@ const store = useGlobalStore()
 
 //var width=216;
 //var height=480;
-const imageUrl = ref('http://127.0.0.1:5768/get_screenshot')
+const imageUrl = ref('http://127.0.0.1:8768/get_screenshot')
 let fetchController = null // 用于取消未完成的请求
-let intervalId = null
+let timerId = null // 用于定时器
 onMounted(() => {
 	const fetchImage = async () => {
 		try {
@@ -48,7 +48,7 @@ onMounted(() => {
 			fetchController = controller
 
 			// 添加时间戳参数
-			const url = `http://127.0.0.1:5768/get_screenshot?t=${Date.now()}`
+			const url = `http://127.0.0.1:8768/get_screenshot?t=${Date.now()}`
 
 			// 使用fetch获取图片
 			const response = await fetch(url, {
@@ -81,7 +81,7 @@ onMounted(() => {
 		}
 	}
 
-	let timerId = setTimeout(fetchImage, 0) // 立即执行首次请求
+	timerId = setTimeout(fetchImage, 0) // 立即执行首次请求
 })
 
 onBeforeUnmount(() => {
@@ -121,7 +121,7 @@ const onReset = async () => {
 	try {
 		store.runningTask = true // 开始加载
 		// 发送 POST 请求
-		// const response = await fetch('http://127.0.0.1:5768/reset', {
+		// const response = await fetch('http://127.0.0.1:8768/reset', {
 		// 	method: 'POST',
 		// 	headers: {
 		// 		accept: 'application/json',
@@ -129,7 +129,7 @@ const onReset = async () => {
 		// 	},
 		// 	//body: JSON.stringify({ task_goal: taskGoal.value }),
 		// })
-		const response = await fetchWithTimeout('http://127.0.0.1:5768/reset', {
+		const response = await fetchWithTimeout('http://127.0.0.1:8768/reset', {
 		  method: 'POST',
 		  headers: {
 		    accept: 'application/json',
@@ -152,7 +152,7 @@ const onReset = async () => {
 const onTerminate = async () => {
 	try {
 		// 发送 POST 请求
-		// const response = await fetch('http://127.0.0.1:5769/stop', {
+		// const response = await fetch('http://127.0.0.1:8767/stop', {
 		// 	method: 'POST',
 		// 	headers: {
 		// 		accept: 'application/json',
@@ -161,7 +161,7 @@ const onTerminate = async () => {
 		// 	//body: JSON.stringify({ task_goal: taskGoal.value }),
 		// })
 		store.controller.abort()
-		const response = await fetchWithTimeout('http://127.0.0.1:5768/sent_a_massage3', {
+		const response = await fetchWithTimeout('http://127.0.0.1:8768/sent_a_massage3', {
 		  method: 'POST',
 		  headers: {
 		    accept: 'application/json',

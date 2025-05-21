@@ -31,7 +31,7 @@ const pollingInterval = ref(null)
 
 const checkMessages = async () => {
 	try {
-		const response = await fetch('http://127.0.0.1:5768/get_a_massage2', {
+		const response = await fetch('http://127.0.0.1:8768/get_a_massage2', {
 			method: 'GET',
 			headers: {
 				accept: 'application/json',
@@ -75,7 +75,7 @@ const checkMessages = async () => {
 				})
 			} else if (data.message_type === 'done') {
 				store.runningTask = false
-			}/*else {
+			}else {
 				chatMessages.value.push({
 					//messageType: 'text',
 					messageType: 'raw',
@@ -83,9 +83,9 @@ const checkMessages = async () => {
 					position: 'left',
 					//html: jsonData.action
 					//html:data.task_goal
-					html: `<p><strong>Unknown</strong><br>${data.message}</p>`,
+					html: `<strong>Unknown</strong><br>${data.message}`.replace('\n', '<br>'),
 				})
-			}*/
+			}
 			//}
 		} catch (e) {
 			console.error('JSON解析失败:', e)

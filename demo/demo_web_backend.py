@@ -8,7 +8,7 @@ import requests
 
 def send_message(message: dict = None, text: str = None, images: list[str] = None):
     url = (
-        os.getenv("MESSAGE_SERVER_ENDPOINT", "http://127.0.0.1:5768")
+        os.getenv("MESSAGE_SERVER_ENDPOINT", "http://127.0.0.1:8768")
         + "/sent_a_massage"
     )
     rsp, ret = None, None
@@ -31,7 +31,7 @@ def send_message(message: dict = None, text: str = None, images: list[str] = Non
 
 def send_message2(message: dict = None, text: str = None, images: list[str] = None):
     url = (
-        os.getenv("MESSAGE_SERVER_ENDPOINT", "http://127.0.0.1:5768")
+        os.getenv("MESSAGE_SERVER_ENDPOINT", "http://127.0.0.1:8768")
         + "/sent_a_massage2"
     )
     rsp, ret = None, None
@@ -54,7 +54,7 @@ def send_message2(message: dict = None, text: str = None, images: list[str] = No
 
 def get_a_message3():
     url = (
-        os.getenv("MESSAGE_SERVER_ENDPOINT", "http://127.0.0.1:5768")
+        os.getenv("MESSAGE_SERVER_ENDPOINT", "http://127.0.0.1:8768")
         + "/get_a_massage3"
     )
     rsp = requests.get(url)
@@ -105,7 +105,7 @@ import base64
 async def get_massage():
     """
     ```js
-    fetch('http://127.0.0.1:5768/get_a_massage', {
+    fetch('http://127.0.0.1:8768/get_a_massage', {
     method: 'GET',
     headers: {
         'accept': 'application/json',
@@ -129,7 +129,7 @@ async def get_massage():
 async def sent_massage(request: Request):
     """
     ```js
-    fetch('http://127.0.0.1:5768/sent_a_massage', {
+    fetch('http://127.0.0.1:8768/sent_a_massage', {
     method: 'POST',
     headers: {
         'accept': 'application/json',
@@ -217,4 +217,4 @@ if __name__ == "__main__":
     massage_queue3 = Queue()
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=5768, timeout_graceful_shutdown=3)
+    uvicorn.run(app, host="0.0.0.0", port=8768, timeout_graceful_shutdown=3)

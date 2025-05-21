@@ -1,5 +1,5 @@
 """
-使用方式： python -m utils.rag
+使用方式： python -m utils.retrieval
 """
 
 import copy
@@ -215,7 +215,7 @@ async def retrieval_batch(request: Request):
 
 if __name__ == "__main__":
     """
-    Usage: python -m utils.rag
+    Usage: python -m utils.retrieval
     """
 
     __KNOWLEDGE_BASE_ABSOLUTE_ROOT_PATH = os.getenv("KNOWLEDGE_BASE_ABSOLUTE_ROOT_PATH")
@@ -226,12 +226,12 @@ if __name__ == "__main__":
         print(f"Using knowledge base at {__KNOWLEDGE_BASE_ABSOLUTE_ROOT_PATH}")
     else:
         print(
-            f"WARNING: No knowledge base found at {__KNOWLEDGE_BASE_ABSOLUTE_ROOT_PATH}, please set KNOWLEDGE_BASE_ABSLUTE_ROOT_PATH in environment variable or .env file"
+            f"WARNING: No knowledge base found at {__KNOWLEDGE_BASE_ABSOLUTE_ROOT_PATH}, please set KNOWLEDGE_BASE_ABSOLUTE_ROOT_PATH in environment variable or .env file"
         )
         exit(1)
 
     os.environ["no_proxy"] = "localhost, 127.0.0.1/8, ::1"
-    print("RAG Service")
+    print("Retrieval Service")
     print("Loading Memory...")
     __MEMORY = load_memories(__KNOWLEDGE_BASE_ABSOLUTE_ROOT_PATH)
 
