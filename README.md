@@ -129,17 +129,17 @@ You should be able to see something like this:
 ## Evaluation results
 
 Table 1: Main Result of GUI-explorer on SPA-Bench single-app English Level 3 tasks. 
-![SPA-Bench](assets/SPA-Bench.webp)
+<img src="assets/SPA-Bench.webp" alt="SPA-Bench" style="zoom: 25%;" />
 
 Table 2: Main Result of GUI-explorer on AndroidWorld Tasks. 
-![AndroidWorld](assets/AndroidWorld.webp)
+<img src="assets/AndroidWorld.webp" alt="AndroidWorld" style="zoom:25%;" />
 
 Table 3: Main Result of GUI-explorer on GUI-KRB. 
-![GUI-KRB](assets/GUI-KRB.webp)
+<img src="assets/GUI-KRB.webp" alt="GUI-KRB" style="zoom:25%;" />
 
 ## More Examples
 
-![compare](assets/compare.webp)
+<img src="assets/compare.webp" alt="compare" style="zoom:13%;" />
 
 
 
