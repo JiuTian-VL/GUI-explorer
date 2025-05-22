@@ -19,7 +19,7 @@
 
 Annual Meeting of the Association for Computational Linguistics (**ACL**) 2025
 
-[[Paper]](https://arxiv.org/abs/) [[Code]](https://github.com/JiuTian-VL/GUI-explorer) 
+[[Paper]](https://arxiv.org/abs/) [[Code]](https://github.com/JiuTian-VL/GUI-explorer) [[Project Page]](https://xieincz.github.io/GUI-explorer.github.io/) 
 
 :fire: Details will be released. Stay tuned :beers: :+1: 
 
@@ -30,6 +30,7 @@ Annual Meeting of the Association for Computational Linguistics (**ACL**) 2025
 
 ## Updates
 
+- [05/2025] [Project Page](https://xieincz.github.io/GUI-explorer.github.io/) released.
 - [05/2025] [Arxiv paper](https://arxiv.org/abs/) released.
 - [05/2025] [Code](https://github.com/JiuTian-VL/GUI-explorer) released.
 
@@ -81,7 +82,6 @@ python -m utils.embedding_pipeline
 cd GUI-explorer
 conda activate GUI_explorer
 python -m utils.retrieval 
-# After the update of knowledge_base, you need to restart it to load the new knowledge_base
 ```
 
 #### Exploration
@@ -91,6 +91,7 @@ python -m utils.retrieval
 cd GUI-explorer
 conda activate GUI_explorer
 python exploration_and_mining.py -device_serial emulator-5554 -max_branching_factor 10 -max_exploration_steps 30 -max_exploration_depth 5 -package_name net.osmand
+# After the update of knowledge_base, you need to restart `python -m utils.retrieval` to load the new knowledge_base
 ```
 
 `device_serial` can be obtained by running `adb devices`. (If not, you need to follow the `Setup` section in [this tutorial](https://github.com/ai-agents-2030/SPA-Bench/blob/main/Documentation.md#setup)).
@@ -131,7 +132,7 @@ You should be able to see something like this:
 Table 1: Main Result of GUI-explorer on SPA-Bench single-app English Level 3 tasks. 
 <img src="assets/SPA-Bench.webp" alt="SPA-Bench" style="zoom: 25%;" />
 
-Table 2: Main Result of GUI-explorer on AndroidWorld Tasks. 
+Table 2: Main Result of GUI-explorer on AndroidWorld tasks. 
 <img src="assets/AndroidWorld.webp" alt="AndroidWorld" style="zoom:25%;" />
 
 Table 3: Main Result of GUI-explorer on GUI-KRB. 
