@@ -127,7 +127,7 @@ You should be able to see something like this:
 
 
 
-## Evaluation results
+## Evaluation Results
 
 Table 1: Main Result of GUI-explorer on SPA-Bench single-app English Level 3 tasks. 
 <img src="assets/SPA-Bench.webp" alt="SPA-Bench" style="zoom: 25%;" />
@@ -137,6 +137,17 @@ Table 2: Main Result of GUI-explorer on AndroidWorld tasks.
 
 Table 3: Main Result of GUI-explorer on GUI-KRB. 
 <img src="assets/GUI-KRB.webp" alt="GUI-KRB" style="zoom:25%;" />
+
+
+
+## Showcases
+
+|                         Instruction                          |                            Video                             |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| Open Google Chrome and search for today's weather in Shenzhen. Carefully observe the screen and record the current weather conditions. Then, in Markor, create a note named "today.md" and write the temperature read from the webpage into it. | <video src="https://github.com/user-attachments/assets/d8fb64fc-862c-4ef3-af3a-dc86543bfb13" height="788" /> |
+| Get the search results for stay tonight near 'wembley stadium' for 1 adult. Add one result to wishlist. Confirm that this item is in the wishlist. | <video src="https://github.com/user-attachments/assets/9dbae8ca-ceb1-4472-b908-f7de6df71189" height="788" /> |
+
+
 
 ## More Examples
 
