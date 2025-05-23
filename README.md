@@ -19,7 +19,7 @@
 
 Annual Meeting of the Association for Computational Linguistics (**ACL**) 2025
 
-[[Paper]](https://arxiv.org/abs/) [[Code]](https://github.com/JiuTian-VL/GUI-explorer) [[Project Page]](https://xieincz.github.io/GUI-explorer.github.io/) 
+[[Paper]](https://arxiv.org/abs/2505.16827) [[Code]](https://github.com/JiuTian-VL/GUI-explorer) [[Project Page]](https://xieincz.github.io/GUI-explorer.github.io/) 
 
 :fire: Details will be released. Stay tuned :beers: :+1: 
 
@@ -31,7 +31,7 @@ Annual Meeting of the Association for Computational Linguistics (**ACL**) 2025
 ## Updates
 
 - [05/2025] [Project Page](https://xieincz.github.io/GUI-explorer.github.io/) released.
-- [05/2025] [Arxiv paper](https://arxiv.org/abs/) released.
+- [05/2025] [Arxiv paper](https://arxiv.org/abs/2505.16827) released.
 - [05/2025] [Code](https://github.com/JiuTian-VL/GUI-explorer) released.
 
 ## Introduction
