@@ -842,7 +842,7 @@ def execute_adb_action(
             {
                 "message_type": "action",
                 "display_type": "text",
-                "message": f"Wait for 2 seconds.",
+                "message": "Wait for 2 seconds.",
             }
         )
         time.sleep(2.0)
@@ -1300,7 +1300,7 @@ class GUI_explorer(object):
             )
         knowledge_prompt_demo = ""
         for item in prioritized_knowledge:
-            knowledge_prompt += f'\nUI element {item["index"]}: {item["hints"]['hint_1'] if len(item["hints"]) ==1 else item["hints"]}'
+            knowledge_prompt += f'\nUI element {item["index"]}: {item["hints"]["hint_1"] if len(item["hints"]) ==1 else item["hints"]}'
             knowledge_prompt_demo += knowledge_prompt
 
         if len(knowledge_prompt) > 0:
