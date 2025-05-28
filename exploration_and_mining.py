@@ -45,6 +45,9 @@ def task_goal_generator(
         activity_list=activity_list if activity_list else "Not Available",
     )
     # print(f"Prompt: \n{p}")
+    low_resolution = os.getenv("LOW_RESOLUTION", "False").lower() == "true"
+    if low_resolution:
+        screenshot = resize_pil_image(screenshot, 1000)
     messages = [
         {
             "role": "user",
@@ -52,7 +55,7 @@ def task_goal_generator(
                 {
                     "type": "image_url",
                     "image_url": {
-                        "url": f"data:image/webp;base64,{pil_to_webp_base64(resize_pil_image(screenshot, 1000))}",
+                        "url": f"data:image/webp;base64,{pil_to_webp_base64(screenshot)}",
                     },
                 },
                 {"type": "text", "text": p},

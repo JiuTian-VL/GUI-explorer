@@ -187,6 +187,10 @@ def update_trajectory_to_knowledge(
             ui_element_attributes=ui_element_attributes,
             action=action,
         )
+        low_resolution = os.getenv("LOW_RESOLUTION", "False").lower() == "true"
+        if low_resolution:
+            before_screenshot = resize_ndarray_image(before_screenshot, 1000)
+            after_screenshot = resize_ndarray_image(after_screenshot, 1000)
         messages = [
             {
                 "role": "user",
@@ -194,13 +198,13 @@ def update_trajectory_to_knowledge(
                     {
                         "type": "image_url",
                         "image_url": {
-                            "url": f"data:image/webp;base64,{ndarray_to_webp_base64(resize_ndarray_image(before_screenshot, 1000))}",
+                            "url": f"data:image/webp;base64,{ndarray_to_webp_base64(before_screenshot)}",
                         },
                     },
                     {
                         "type": "image_url",
                         "image_url": {
-                            "url": f"data:image/webp;base64,{ndarray_to_webp_base64(resize_ndarray_image(after_screenshot, 1000))}",
+                            "url": f"data:image/webp;base64,{ndarray_to_webp_base64(after_screenshot)}",
                         },
                     },
                     {"type": "text", "text": p},

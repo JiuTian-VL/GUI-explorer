@@ -1,5 +1,5 @@
 """
-使用方式： python -m utils.rag
+使用方式： python -m utils.retrieval
 """
 
 import copy
@@ -64,7 +64,7 @@ import os
 
 
 def retrieval_api(
-    query: Image.Image, top_k: int = 1, threshold: float = 0.5, package_name: str = None
+    query: Image.Image, top_k: int = 1, threshold: float = 0.9, package_name: str = None
 ) -> list[dict]:  # NOTE:将这个函数复制到需要调用retrieval_api的地方即可
     """检索出query对应的knowledge
 
@@ -94,7 +94,7 @@ def retrieval_api(
 def retrieval_batch_api(
     queries: list[Image.Image],
     top_k: int = 1,
-    threshold: float = 0.5,
+    threshold: float = 0.9,
     package_name: str = None,
 ) -> list[list[dict]]:
     """检索出query对应的knowledge
@@ -155,7 +155,7 @@ async def retrieval(request: Request):
         query = data.get("query", None)
         top_k = data.get("top_k", 1)
         package_name = data.get("package_name", None)
-        threshold = data.get("threshold", 0.5)
+        threshold = data.get("threshold", 0.9)
         # similarity = data.get("similarity", "l2") #TODO:等待后续支持l2
         result = {"results": []}
         if query is not None:
@@ -195,7 +195,7 @@ async def retrieval_batch(request: Request):
         queries = data.get("queries", [])
         top_k = data.get("top_k", 1)
         package_name = data.get("package_name", None)
-        threshold = data.get("threshold", 0.5)
+        threshold = data.get("threshold", 0.9)
         # similarity = data.get("similarity", "l2") #TODO:等待后续支持l2
         result = {"results": []}
         if queries:
@@ -215,7 +215,7 @@ async def retrieval_batch(request: Request):
 
 if __name__ == "__main__":
     """
-    Usage: python -m utils.rag
+    Usage: python -m utils.retrieval
     """
 
     __KNOWLEDGE_BASE_ABSOLUTE_ROOT_PATH = os.getenv("KNOWLEDGE_BASE_ABSOLUTE_ROOT_PATH")
@@ -226,12 +226,12 @@ if __name__ == "__main__":
         print(f"Using knowledge base at {__KNOWLEDGE_BASE_ABSOLUTE_ROOT_PATH}")
     else:
         print(
-            f"WARNING: No knowledge base found at {__KNOWLEDGE_BASE_ABSOLUTE_ROOT_PATH}, please set KNOWLEDGE_BASE_ABSLUTE_ROOT_PATH in environment variable or .env file"
+            f"WARNING: No knowledge base found at {__KNOWLEDGE_BASE_ABSOLUTE_ROOT_PATH}, please set KNOWLEDGE_BASE_ABSOLUTE_ROOT_PATH in environment variable or .env file"
         )
         exit(1)
 
     os.environ["no_proxy"] = "localhost, 127.0.0.1/8, ::1"
-    print("RAG Service")
+    print("Retrieval Service")
     print("Loading Memory...")
     __MEMORY = load_memories(__KNOWLEDGE_BASE_ABSOLUTE_ROOT_PATH)
 

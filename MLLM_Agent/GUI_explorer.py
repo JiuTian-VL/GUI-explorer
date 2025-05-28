@@ -18,7 +18,7 @@ def get_a_message3():
     if not demo_on:
         return None
     url = (
-        os.getenv("MESSAGE_SERVER_ENDPOINT", "http://127.0.0.1:5768")
+        os.getenv("MESSAGE_SERVER_ENDPOINT", "http://127.0.0.1:8768")
         + "/get_a_massage3"
     )
     try:
@@ -44,7 +44,7 @@ def send_message(message: dict = None, text: str = None, images: list[str] = Non
     if not demo_on:
         return None
     url = (
-        os.getenv("MESSAGE_SERVER_ENDPOINT", "http://127.0.0.1:5768")
+        os.getenv("MESSAGE_SERVER_ENDPOINT", "http://127.0.0.1:8768")
         + "/sent_a_massage"
     )
     try:
@@ -65,7 +65,7 @@ def send_message2(message: dict = None, text: str = None, images: list[str] = No
     if not demo_on:
         return None
     url = (
-        os.getenv("MESSAGE_SERVER_ENDPOINT", "http://127.0.0.1:5768")
+        os.getenv("MESSAGE_SERVER_ENDPOINT", "http://127.0.0.1:8768")
         + "/sent_a_massage2"
     )
     try:
@@ -87,7 +87,7 @@ def send_message2(message: dict = None, text: str = None, images: list[str] = No
 def retrieval_batch_api(
     queries: list[Image.Image],
     top_k: int = 1,
-    threshold: float = 0.5,
+    threshold: float = 0.9,
     package_name: str = None,
 ) -> list[list[dict]]:
     """检索出query对应的knowledge
@@ -187,8 +187,8 @@ async def merge_sorted_partitions(
     while left_idx < len(left_partition) and right_idx < len(right_partition):
         comparison_result = await compare_knowledge_utility(
             instruction,
-            str(left_partition[left_idx]["tips"]),
-            str(right_partition[right_idx]["tips"]),
+            str(left_partition[left_idx]["hints"]),
+            str(right_partition[right_idx]["hints"]),
             session,
             usage,
         )
@@ -443,13 +443,16 @@ def ask_mllm(text_prompt: str, images: list[np.ndarray]) -> tuple[str, Any]:
         ],
         "max_tokens": 1000,
     }
-
+    low_resolution = os.getenv("LOW_RESOLUTION", "False").lower() == "true"
     for image in images:
+        if low_resolution:
+            # Resize the image to a lower resolution for faster processing.
+            image = resize_ndarray_image(image, 1000)
         payload["messages"][0]["content"].append(
             {
                 "type": "image_url",
                 "image_url": {
-                    "url": f"data:image/webp;base64,{ndarray_to_webp_base64(resize_ndarray_image(image,1000))}"
+                    "url": f"data:image/webp;base64,{ndarray_to_webp_base64(image)}"
                 },
             }
         )
@@ -644,7 +647,6 @@ def execute_adb_action(
                         "message_type": "action",
                         "display_type": "text",
                         "message": f"Long press on element {idx} at ({x}, {y}).",
-                        "message": f"长按在 ({x}, {y}) 的{idx}号UI元素。",
                     }
                 )
                 device_controller.long_click(x, y)
@@ -655,7 +657,6 @@ def execute_adb_action(
                         "message_type": "action",
                         "display_type": "text",
                         "message": f"Click on screen at ({x}, {y}).",
-                        "message": f"点击屏幕的 ({x}, {y})。",
                     }
                 )
                 device_controller.click(x, y)
@@ -665,7 +666,6 @@ def execute_adb_action(
                         "message_type": "action",
                         "display_type": "text",
                         "message": f"Double click on screen at ({x}, {y}).",
-                        "message": f"双击屏幕的 ({x}, {y})。",
                     }
                 )
                 device_controller.double_click(x, y)
@@ -675,7 +675,6 @@ def execute_adb_action(
                         "message_type": "action",
                         "display_type": "text",
                         "message": f"Long press on screen at ({x}, {y}).",
-                        "message": f"长按屏幕的 ({x}, {y})。",
                     }
                 )
                 device_controller.long_click(x, y)
@@ -846,8 +845,7 @@ def execute_adb_action(
             {
                 "message_type": "action",
                 "display_type": "text",
-                # "message": f"Wait for 2 seconds.",
-                "message": f"等待 2 秒。",
+                "message": "Wait for 2 seconds.",
             }
         )
         time.sleep(2.0)
@@ -1113,10 +1111,10 @@ class GUI_explorer(object):
         self.early_stop = False  # Early stop flag for demo.
         self.demo_on = os.getenv("TURN_ON_DEMO_MODE", "False").lower() == "true"
         if rag_top_k is None:
-            rag_top_k = int(os.getenv("RAG_TOP_K", 2))
+            rag_top_k = int(os.getenv("RAG_TOP_K", 1))
         self.rag_top_k = rag_top_k
         if rag_threshold is None:
-            rag_threshold = float(os.getenv("RAG_THRESHOLD", 0.5))
+            rag_threshold = float(os.getenv("RAG_THRESHOLD", 0.9))
         self.rag_threshold = rag_threshold
 
     def reset(self, go_home_on_reset: bool = False):
@@ -1282,13 +1280,13 @@ class GUI_explorer(object):
         all_knowledge = []
         for idx, res in zip(cropped_idxs, retrieval_result):
             if res:
-                tips = {}
+                hints = {}
                 for i, item in enumerate(res):
-                    tips[f"tip_{i+1}"] = item["knowledge"]
+                    hints[f"hint_{i+1}"] = item["knowledge"]
                 all_knowledge.append(
                     {
                         "index": idx,
-                        "tips": tips,
+                        "hints": hints,
                     }
                 )
         self.early_stop = is_need_stop()
@@ -1305,7 +1303,7 @@ class GUI_explorer(object):
             )
         knowledge_prompt_demo = ""
         for item in prioritized_knowledge:
-            knowledge_prompt += f'\nUI element {item["index"]}: {item["tips"]['tip_1'] if len(item["tips"]) ==1 else item["tips"]}'
+            knowledge_prompt += f'\nUI element {item["index"]}: {item["hints"]["hint_1"] if len(item["hints"]) ==1 else item["hints"]}'
             knowledge_prompt_demo += knowledge_prompt
 
         if len(knowledge_prompt) > 0:

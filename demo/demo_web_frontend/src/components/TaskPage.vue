@@ -85,7 +85,7 @@ const handleSearch = async () => {
 
 		store.controller = new AbortController()
 		const response = await fetchWithTimeout(
-			'http://127.0.0.1:5769/run_task',
+			'http://127.0.0.1:8767/run_task',
 			{
 				method: 'POST',
 				headers: {
@@ -123,7 +123,7 @@ const pollingInterval = ref(null)
 
 const checkMessages = async () => {
 	try {
-		const response = await fetch('http://127.0.0.1:5768/get_a_massage', {
+		const response = await fetch('http://127.0.0.1:8768/get_a_massage', {
 			method: 'GET',
 			headers: {
 				accept: 'application/json',
